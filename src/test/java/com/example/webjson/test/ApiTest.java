@@ -1,5 +1,6 @@
-package com.example.webjson;
+package com.example.webjson.test;
 
+import com.example.webjson.StackQuery;
 import com.example.webjson.StackQuery.SortBy;
 import com.example.webjson.StackQuery.SortOrder;
 import com.example.webjson.data.QueryResultBean;
