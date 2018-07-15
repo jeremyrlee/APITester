@@ -1,7 +1,7 @@
 package com.example.webjson.parsers;
 
-import com.example.webjson.data.QueryResultBean;
-import com.example.webjson.data.StackItems;
+import com.example.webjson.data.ResultData;
+import com.example.webjson.data.ResultArray;
 import com.fasterxml.jackson.jr.ob.JSON;
 
 import java.io.FileInputStream;
@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class JacksonJsonParser implements IStackJsonParser {
+public class JacksonJsonParser implements IJsonParser {
 
     public static void main(String[] args) {
-        IStackJsonParser parser = new JacksonJsonParser();
+        IJsonParser parser = new JacksonJsonParser();
         try (FileInputStream in = new FileInputStream("JSON Example.js")) {
-            List<QueryResultBean> results = parser.parseJson(in);
-            for (QueryResultBean result : results) {
+            List<ResultData> results = parser.parseJson(in);
+            for (ResultData result : results) {
                 System.out.println(result.getTitle());
             }
         } catch (IOException e) {
@@ -24,8 +24,8 @@ public class JacksonJsonParser implements IStackJsonParser {
     }
 
     @Override
-    public List<QueryResultBean> parseJson(InputStream in) throws IOException {
-        StackItems items = JSON.std.beanFrom(StackItems.class, in);
+    public List<ResultData> parseJson(InputStream in) throws IOException {
+        ResultArray items = JSON.std.beanFrom(ResultArray.class, in);
         return items.getItems();
     }
 }

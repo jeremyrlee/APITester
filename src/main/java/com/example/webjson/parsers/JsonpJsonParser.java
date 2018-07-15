@@ -1,7 +1,7 @@
 package com.example.webjson.parsers;
 
 import com.example.webjson.data.OwnerData;
-import com.example.webjson.data.QueryResultBean;
+import com.example.webjson.data.ResultData;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JsonpJsonParser implements IStackJsonParser {
+public class JsonpJsonParser implements IJsonParser {
 
 	public static void main(String[] args) {
 		JsonpJsonParser parser = new JsonpJsonParser();
 		try (FileInputStream in = new FileInputStream("JSON Example.js")) {
-			List<QueryResultBean> results = parser.parseJson(in);
-			for (QueryResultBean result : results) {
+			List<ResultData> results = parser.parseJson(in);
+			for (ResultData result : results) {
 				System.out.println(result.getTitle());
 			}
 		} catch (IOException e) {
@@ -31,17 +31,17 @@ public class JsonpJsonParser implements IStackJsonParser {
 	}
 
 	@Override
-    public List<QueryResultBean> parseJson(InputStream in) {
+    public List<ResultData> parseJson(InputStream in) {
 		JsonReader reader = Json.createReader(in);
 		JsonObject json = reader.readObject();
 		reader.close();
 
 		// parse the json object
-		List<QueryResultBean> results = new ArrayList<>();
+		List<ResultData> results = new ArrayList<>();
 		JsonArray items = json.getJsonArray("items");
 		for (JsonValue item : items) {
 			if (item instanceof JsonObject) {
-				QueryResultBean result = createBean((JsonObject) item);
+				ResultData result = createBean((JsonObject) item);
 				results.add(result);
 			}
 		}
@@ -49,8 +49,8 @@ public class JsonpJsonParser implements IStackJsonParser {
 		return results;
 	}
 
-	public QueryResultBean createBean(JsonObject json) {
-		QueryResultBean bean = new QueryResultBean();
+	public ResultData createBean(JsonObject json) {
+		ResultData bean = new ResultData();
 
 		// you could also change tags to a List
 		JsonArray array = json.getJsonArray("tags");

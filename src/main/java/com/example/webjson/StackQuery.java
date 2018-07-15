@@ -1,7 +1,7 @@
 package com.example.webjson;
 
-import com.example.webjson.data.QueryResultBean;
-import com.example.webjson.parsers.IStackJsonParser;
+import com.example.webjson.data.ResultData;
+import com.example.webjson.parsers.IJsonParser;
 import com.example.webjson.parsers.JacksonJsonParser;
 
 import java.io.IOException;
@@ -71,7 +71,7 @@ public class StackQuery {
 		return url;
 	}
 
-	public List<QueryResultBean> execute() throws IOException {
+	public List<ResultData> execute() throws IOException {
 	    //create a URL
         URL url = buildUrl();
 
@@ -82,8 +82,8 @@ public class StackQuery {
 			in = new GZIPInputStream(in);
 		}
 
-		List<QueryResultBean> result;
-		IStackJsonParser parser = new JacksonJsonParser();
+		List<ResultData> result;
+		IJsonParser parser = new JacksonJsonParser();
 		result = parser.parseJson(in);
 		in.close();
 
