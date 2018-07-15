@@ -1,4 +1,4 @@
-package com.example.webjson;
+package com.example.webjson.data;
 
 public class OwnerData {
     public int getUser_id() {

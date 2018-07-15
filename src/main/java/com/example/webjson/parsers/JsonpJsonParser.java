@@ -1,23 +1,22 @@
-package com.example.webjson;
+package com.example.webjson.parsers;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.webjson.data.OwnerData;
+import com.example.webjson.data.QueryResultBean;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonReaderFactory;
 import javax.json.JsonValue;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class JsonpJsonParser {
+public class JsonpJsonParser implements IStackJsonParser {
 
 	public static void main(String[] args) {
 		JsonpJsonParser parser = new JsonpJsonParser();
@@ -31,7 +30,8 @@ public class JsonpJsonParser {
 		}
 	}
 
-	public List<QueryResultBean> parseJson(InputStream in) {
+	@Override
+    public List<QueryResultBean> parseJson(InputStream in) {
 		JsonReader reader = Json.createReader(in);
 		JsonObject json = reader.readObject();
 		reader.close();
